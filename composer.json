@@ -1,0 +1,17 @@
+{
+    "name": "campaignchain/location-linkedin",
+    "description": "LinkedIn user stream.",
+    "keywords": ["linkedin", "user", "stream"],
+    "type": "campaignchain-location",
+    "homepage": "http://www.campaignchain.com",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Sandro Groganz",
+            "email": "sandro@campaignchain.com"
+        }
+    ],
+    "require": {
+        "campaignchain/channel-linkedin": "dev-master"
+    }
+}
