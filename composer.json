@@ -16,5 +16,14 @@
     },
     "autoload": {
         "psr-4": { "CampaignChain\\Location\\LinkedInBundle\\": "" }
+    },
+    "extra": {
+        "campaignchain": {
+            "kernel": {
+                "classes": [
+                    "CampaignChain\\Location\\LinkedInBundle\\CampaignChainLocationLinkedInBundle"
+                ]
+            }
+        }
     }
 }
