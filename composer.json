@@ -12,12 +12,19 @@
         }
     ],
     "require": {
+<<<<<<< HEAD
         "campaignchain/channel-linkedin": "dev-master"
+=======
+        "campaignchain/channel-linkedin": "dev-master"
+>>>>>>> 1.0.0-beta.1
     },
     "autoload": {
         "psr-4": { "CampaignChain\\Location\\LinkedInBundle\\": "" }
     },
     "extra": {
+        "branch-alias": {
+            "dev-1.0.0-beta.1": "1.0.0-dev"
+        },
         "campaignchain": {
             "kernel": {
                 "classes": [
