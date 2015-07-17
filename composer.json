@@ -1,7 +1,7 @@
 {
     "name": "campaignchain/location-linkedin",
     "description": "LinkedIn user stream.",
-    "keywords": ["linkedin", "user", "stream"],
+    "keywords": ["linkedin","user","stream","campaignchain"],
     "type": "campaignchain-location",
     "homepage": "http://www.campaignchain.com",
     "license": "Apache-2.0",
