@@ -1,6 +1,6 @@
 {
     "name": "campaignchain/location-linkedin",
-    "description": "LinkedIn user stream.",
+    "description": "Holds information about LinkedIn user streams.",
     "keywords": ["linkedin","campaignchain"],
     "type": "campaignchain-location",
     "homepage": "http://www.campaignchain.com",
