@@ -6,7 +6,9 @@
 # file that was distributed with this source code.
 
 parameters:
-#    campaignchain_location_linked_in.example.class: CampaignChain\Location\LinkedInBundle\Example
+    campaignchain.location.linkedin.user:
+        bundle_name: "campaignchain/location-linkedin"
+        module_identifier: "campaignchain-linkedin-user"
 
 services:
 #    campaignchain_location_linked_in.example:
