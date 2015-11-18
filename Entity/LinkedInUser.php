@@ -11,6 +11,7 @@
 namespace CampaignChain\Location\LinkedInBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use CampaignChain\CoreBundle\Util\ParserUtil;
 
 /**
  * @ORM\Entity
@@ -200,7 +201,7 @@ class LinkedInUser
      */
     public function setProfileUrl($profileUrl)
     {
-        $this->profileUrl = $profileUrl;
+        $this->profileUrl = ParserUtil::sanitizeUrl($profileUrl);
 
         return $this;
     }
