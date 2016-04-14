@@ -11,6 +11,6 @@ parameters:
         module_identifier: "campaignchain-linkedin-user"
 
 services:
-#    campaignchain_location_linked_in.example:
-#        class: %campaignchain_location_linked_in.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    campaignchain_location_linked_in.service:
+        class: CampaignChain\Location\LinkedInBundle\Service\LinkedInLocationService
+        arguments: ["@campaignchain.core.channel.wizard", "@campaignchain.core.location", "@campaignchain.channel.linkedin.rest.client", "@templating.helper.assets"]
