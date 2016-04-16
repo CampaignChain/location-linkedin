@@ -8,11 +8,3 @@
 modules:
     campaignchain-linkedin-user:
         display_name: LinkedIn user stream
-        hooks:
-            default:
-                campaignchain-assignee: true
-    campaignchain-linkedin-page:
-        display_name: LinkedIn page stream
-        hooks:
-            default:
-                campaignchain-assignee: true

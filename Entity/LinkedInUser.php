@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace CampaignChain\Location\LinkedInBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,9 +15,32 @@ use CampaignChain\CoreBundle\Util\ParserUtil;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="campaignchain_location_linkedin_user")
  */
-class User extends LocationBase
+class LinkedInUser
 {
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="CampaignChain\CoreBundle\Entity\Location", cascade={"persist"})
+     */
+    protected $location;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    protected $identifier;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $displayName;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -44,10 +68,67 @@ class User extends LocationBase
 
 
     /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     * @return LinkedInUser
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return string 
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * Set displayName
+     *
+     * @param string $displayName
+     * @return LinkedInUser
+     */
+    public function setDisplayName($displayName)
+    {
+        $this->displayName = $displayName;
+
+        return $this;
+    }
+
+    /**
+     * Get displayName
+     *
+     * @return string 
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
+
+    /**
      * Set firstName
      *
      * @param string $firstName
-     * @return User
+     * @return LinkedInUser
      */
     public function setFirstName($firstName)
     {
@@ -59,7 +140,7 @@ class User extends LocationBase
     /**
      * Get firstName
      *
-     * @return string
+     * @return string 
      */
     public function getFirstName()
     {
@@ -70,7 +151,7 @@ class User extends LocationBase
      * Set lastName
      *
      * @param string $lastName
-     * @return User
+     * @return LinkedInUser
      */
     public function setLastName($lastName)
     {
@@ -82,7 +163,7 @@ class User extends LocationBase
     /**
      * Get lastName
      *
-     * @return string
+     * @return string 
      */
     public function getLastName()
     {
@@ -93,7 +174,7 @@ class User extends LocationBase
      * Set email
      *
      * @param string $email
-     * @return User
+     * @return LinkedInUser
      */
     public function setEmail($email)
     {
@@ -105,7 +186,7 @@ class User extends LocationBase
     /**
      * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -116,7 +197,7 @@ class User extends LocationBase
      * Set profileUrl
      *
      * @param string $profileUrl
-     * @return User
+     * @return LinkedInUser
      */
     public function setProfileUrl($profileUrl)
     {
@@ -128,7 +209,7 @@ class User extends LocationBase
     /**
      * Get profileUrl
      *
-     * @return string
+     * @return string 
      */
     public function getProfileUrl()
     {
@@ -139,7 +220,7 @@ class User extends LocationBase
      * Set profileImageUrl
      *
      * @param string $profileImageUrl
-     * @return User
+     * @return LinkedInUser
      */
     public function setProfileImageUrl($profileImageUrl)
     {
@@ -151,10 +232,43 @@ class User extends LocationBase
     /**
      * Get profileImageUrl
      *
-     * @return string
+     * @return string 
      */
     public function getProfileImageUrl()
     {
         return $this->profileImageUrl;
     }
+
+    /**
+     * Set location
+     *
+     * @param \CampaignChain\CoreBundle\Entity\Location $location
+     * @return LinkedInUser
+     */
+    public function setLocation(\CampaignChain\CoreBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return \CampaignChain\CoreBundle\Entity\Location
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+
+    }
+
 }
