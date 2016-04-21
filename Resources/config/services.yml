@@ -13,4 +13,4 @@ parameters:
 services:
     campaignchain_location_linked_in.service:
         class: CampaignChain\Location\LinkedInBundle\Service\LinkedInLocationService
-        arguments: ["@campaignchain.core.channel.wizard", "@campaignchain.core.location", "@campaignchain.channel.linkedin.rest.client", "@templating.helper.assets", "@doctrine.orm.default_entity_manager"]
+        arguments: ["@campaignchain.core.channel.wizard", "@campaignchain.core.location", "@campaignchain.channel.linkedin.rest.client", "@templating.helper.assets"]

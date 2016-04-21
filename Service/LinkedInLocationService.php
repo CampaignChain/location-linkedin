@@ -18,7 +18,6 @@ use CampaignChain\CoreBundle\Wizard\ChannelWizard;
 use CampaignChain\Location\LinkedInBundle\Entity\Page;
 use CampaignChain\Location\LinkedInBundle\Entity\User;
 use CampaignChain\Security\Authentication\Client\OAuthBundle\Entity\Token;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
@@ -49,18 +48,12 @@ class LinkedInLocationService
      */
     private $assetsHelper;
 
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
-
-    public function __construct(ChannelWizard $channelWizard, LocationService $locationService, LinkedInClient $client, AssetsHelper $assetsHelper, EntityManager $entityManager)
+    public function __construct(ChannelWizard $channelWizard, LocationService $locationService, LinkedInClient $client, AssetsHelper $assetsHelper)
     {
         $this->channelWizard = $channelWizard;
         $this->locationService = $locationService;
         $this->client = $client;
         $this->assetsHelper = $assetsHelper;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -101,7 +94,8 @@ class LinkedInLocationService
         /** @var Token $userToken */
         $userToken = array_values($tokens)[0];
 
-        $companies = $this->client->getCompanies($userToken);
+        $connection = $this->client->getConnectionByToken($userToken);
+        $companies = $connection->getCompanies();
 
         //there is only a user page
         if (empty($companies)) {
@@ -122,7 +116,7 @@ class LinkedInLocationService
             $tokens[$company['id']] = $newToken;
             $this->channelWizard->set('tokens', $tokens);
 
-            $companyData = $this->client->getCompanyProfile($userToken, $company['id']);
+            $companyData = $connection->getCompanyProfile($company['id']);
 
             $locationPage = new Location();
             $locationPage->setChannel($channel);
@@ -172,6 +166,8 @@ class LinkedInLocationService
 
     public function handleCompanyPageCreation(Location $location)
     {
+        $this->channelWizard->setName($location->getName());
+
         $pagesData = $this->channelWizard->get('pagesData');
         $pageData = $pagesData[$location->getIdentifier()];
 
@@ -192,20 +188,5 @@ class LinkedInLocationService
         $flashBagMsg = $this->channelWizard->get('flashBagMsg');
         $flashBagMsg .= '<li>Page: <a href="'.$page->getLink().'">'.$page->getDisplayName().'</a></li>';
         $this->channelWizard->set('flashBagMsg', $flashBagMsg);
-    }
-
-    /**
-     * Removes the not assigned tokens.
-     */
-    public function cleanUpUnassignedTokens()
-    {
-        $tokens = $this->channelWizard->get('tokens');
-        $this->entityManager->clear();
-        foreach ($tokens as $token) {
-            $token = $this->entityManager->merge($token);
-            $this->entityManager->remove($token);
-        }
-
-        $this->entityManager->flush();
     }
 }
