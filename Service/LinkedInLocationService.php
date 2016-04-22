@@ -90,7 +90,12 @@ class LinkedInLocationService
         $locationModuleUser->addLocation($locationUser);
         $locations[$profile->identifier] = $locationUser;
 
-        $companies = $this->client->getCompanies();
+        $tokens = $this->channelWizard->get('tokens');
+        /** @var Token $userToken */
+        $userToken = array_values($tokens)[0];
+
+        $connection = $this->client->getConnectionByToken($userToken);
+        $companies = $connection->getCompanies();
 
         //there is only a user page
         if (empty($companies)) {
@@ -102,10 +107,6 @@ class LinkedInLocationService
             ->getLocationModule('campaignchain/location-linkedin', 'campaignchain-linkedin-page');
 
         $wizardPages = [];
-        $tokens = $this->channelWizard->get('tokens');
-        /** @var Token $userToken */
-        $userToken = array_values($tokens)[0];
-
         foreach ($companies as $company) {
 
             $newToken = new Token();
@@ -115,7 +116,7 @@ class LinkedInLocationService
             $tokens[$company['id']] = $newToken;
             $this->channelWizard->set('tokens', $tokens);
 
-            $companyData = $this->client->getCompanyProfile($company['id']);
+            $companyData = $connection->getCompanyProfile($company['id']);
 
             $locationPage = new Location();
             $locationPage->setChannel($channel);
@@ -165,6 +166,8 @@ class LinkedInLocationService
 
     public function handleCompanyPageCreation(Location $location)
     {
+        $this->channelWizard->setName($location->getName());
+
         $pagesData = $this->channelWizard->get('pagesData');
         $pageData = $pagesData[$location->getIdentifier()];
 
