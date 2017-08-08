@@ -74,9 +74,6 @@ class LinkedInLocationService
         $locations = [];
 
         $locationName = $profile->displayName;
-        if (!empty($profile->username)) {
-            $locationName .= ' ('.$profile->username.')';
-        }
 
         // Get the location module for the user stream.
         $locationModuleUser = $this->locationService
